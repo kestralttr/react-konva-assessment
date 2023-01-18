@@ -2,3 +2,42 @@ body {
   margin: 0;
   padding: 0;
 }
+
+#toolbar__container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  left: 20px;
+  top: 20px;
+  width: 160px;
+  height: 260px;
+  background-color: #fff;
+  color: #000;
+  z-index: 100;
+  box-shadow: 2px 2px 5px #555;
+  border-radius: 8px;
+  padding: 40px;
+}
+
+#load-json__input {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+#image-preview__container {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  width: 150px;
+  height: 150px;
+  background-color: #fff;
+  z-index: 100;
+  box-shadow: 0 0 5px #000;
+}
+
+#image-preview__container img {
+  height: 100%;
+}
