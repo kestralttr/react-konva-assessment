@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { observer } from "mobx-react-lite";
 import { Layer, Stage, Image } from "react-konva";
+import Konva from 'konva'
 import { StarElement } from "../elements/StarElement";
 import { useStore } from "../store/design";
 import { ElementType, Element } from "../store/element";
@@ -15,8 +16,8 @@ function ArtboardImpl() {
   const { elements } = useStore();
   let [image] = useImage(previewURL)
 
-  const mainLayerRef = useRef<any>(null)
-  const previewRef = useRef<any>(null)
+  const mainLayerRef = useRef<Konva.Layer>(null)
+  const previewRef = useRef<Konva.Image>(null)
 
   useEffect(() => {
     previewRef?.current?.cache()
@@ -24,7 +25,7 @@ function ArtboardImpl() {
 
   useEffect(() => {
     if (readyForPreview) {
-      setPreviewURL(mainLayerRef?.current?.toDataURL())
+      setPreviewURL(mainLayerRef?.current?.toDataURL() || '')
       setShowPreview(true)
       resolveAfterPreview()
     }
@@ -69,8 +70,9 @@ function ArtboardImpl() {
     setReadyForPreview(false)
   }
 
-  function CustomFilter(imageData: {data: any}) {
+  function CustomBlackAndWhiteFilter(imageData: {data: Uint8ClampedArray}) {
     const pixels = imageData?.data?.length
+    console.log(imageData)
     for (var i = 0; i < pixels - 4; i += 4) {
       if (imageData.data[i+3] > 0) {
         imageData.data[i] = 0;
@@ -123,7 +125,7 @@ function ArtboardImpl() {
               y={window.innerHeight - (window.innerHeight / 5 + 50)}
               width={window.innerWidth / 5}
               height={window.innerHeight / 5}
-              filters={[CustomFilter]}
+              filters={[CustomBlackAndWhiteFilter]}
               strokeWidth={2}
               stroke={"000"}
             />

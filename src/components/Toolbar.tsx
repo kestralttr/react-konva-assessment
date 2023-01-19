@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react'
+import React, { ChangeEvent, useRef } from 'react'
 import { ElementAttrs, ElementType } from "../store/element";
 import { observer } from "mobx-react-lite";
 
@@ -29,15 +29,20 @@ export function ToolbarImpl(props: ToolbarProps) {
     }
 
     function handleSaveJSON() {
+        if (!selectedElement) return
 
         interface ShapeData {
             [key: string]: string | number | boolean
         }
 
         const shapeData : ShapeData = ElementAttrs
-        Object.keys(ElementAttrs).forEach((key: string) => {
-            (shapeData)[key] = selectedElement?.[key]
-        })
+        shapeData.x = selectedElement.x
+        shapeData.y = selectedElement.y
+        shapeData.rotation = selectedElement.rotation
+        shapeData.scaleX = selectedElement.scaleX
+        shapeData.scaleY = selectedElement.scaleY
+        shapeData.fill = selectedElement.fill
+        shapeData.numPoints = selectedElement.numPoints
 
         const a = document.createElement("a")
         a.href = URL.createObjectURL(
@@ -49,7 +54,7 @@ export function ToolbarImpl(props: ToolbarProps) {
         a.click()
     } 
 
-    function handleLoadJSONClick(e: {preventDefault: Function}) {
+    function handleLoadJSONClick(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
         loadJSONInputRef?.current?.click()
     }
@@ -67,12 +72,11 @@ export function ToolbarImpl(props: ToolbarProps) {
         })
     }
 
-    function handleLoadJSONFile(e: {preventDefault: Function, target: {value: any, files: Blob[]}}) {
+    function handleLoadJSONFile(e: ChangeEvent<HTMLInputElement>) {
         e.preventDefault()
         let reader = new FileReader()
         reader.onload = handleReaderLoad
-        reader.readAsText(e.target.files[0]!);
-
+        reader.readAsText(e.target.files![0]);
     }
 
     function handleRenderPreview() {
