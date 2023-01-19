@@ -1,11 +1,5 @@
 # React + Konva Assessment
 
-The Vecteezy editor uses a combination of React, Konva.JS, and MobX State Tree.
-
-This assessment introduces concepts critical to Konva design applications.
-
-Expected Time: 5 hours
-
 ## Commands
 
 `yarn` - Install dependencies
@@ -14,51 +8,37 @@ Expected Time: 5 hours
 
 `yarn build` - Bundle complete application
 
-## Tasks
+## Functionality
 
-- Allow the stars to be dragged
+Stars can be dragged
 
-- Allow any given star to be selected with a Konva transfomer
+Any given star can be selected with a Konva transfomer via a click
 
-  - Customize the visual appearance of the transformer
-  - Clicking the background should deselect
+- Visual appearance of the transformer has been updated to have a purple border and blue anchor points
+- Clicking the background deselects a previously selected star  
 
-- Add a toolbar component with the following features:
+A toolbar component with the following features has been added that includes the following features:
 
-  - A slider that adjusts the number of points for the currently selected star
-  - A input that adjusts the fill color of the currently selected star
-  - A button to download the current design as JSON
-  - A button to allow uploading a JSON file from the previous step and resume editing
+- A text node that shows the id of the currently selected star
+- A slider that adjusts the number of points for the currently selected star
+- A text node that displays the number of points for the currently selected star
+- A input that adjusts the fill color of the currently selected star
+- A button to download the currently selected star's data as JSON
+- A button to allow uploading of a correctly formatted JSON file, which will update the currently selected star with the data supplied by the JSON file, and allow for further editing
+- A button that shows a black & white preview of the artboard
+- A button that hides the black & white preview of the artboard (if currently shown)
 
-- Resume editing must restore all the following data:
+Saving & loading JSON will save/load the following data for a given star:
 
-  - Position
-  - Rotation
-  - Scale
-  - Fill
-  - Number of Points
+- Position
+- Rotation
+- Scale
+- Fill
+- Number of Points
 
-- Add a Generate Preview button
+Upon generation of the preview:
 
-  - When pressed convert the current artboard to an image
-  - Use javascript + canvas to convert the image to black and white.
-    - For assessment purposes please do not use CSS to display in black and white.
-  - Display the image in a preview window in the corner
-
-## Documentation
-
-https://konvajs.org/docs/index.html
-
-https://konvajs.org/api/Konva.html
-
-https://konvajs.org/api/Konva.Transformer.html
-
-https://konvajs.org/api/Konva.Stage.html
-
-https://mobx-state-tree.js.org/concepts/trees
-
-## Mockup
-
-Here is an example of a completed assessment by Eezy developers
-
-![Assessment Mockup](https://github.com/eezyinc/react-konva-assessment/raw/master/mockup.png)
+- A black and white image (rendered via Konva custom filter - no CSS) will appear in the bottom right corner of the artboard.
+- The black and white image will exclude the following items from the render (assuming they are present when the render is performed):
+  - The Konva Transformer box
+  - A previously rendered preview image

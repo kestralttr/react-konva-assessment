@@ -72,7 +72,6 @@ function ArtboardImpl() {
 
   function CustomBlackAndWhiteFilter(imageData: {data: Uint8ClampedArray}) {
     const pixels = imageData?.data?.length
-    console.log(imageData)
     for (var i = 0; i < pixels - 4; i += 4) {
       if (imageData.data[i+3] > 0) {
         imageData.data[i] = 0;

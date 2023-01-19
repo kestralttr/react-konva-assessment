@@ -77,6 +77,7 @@ export function ToolbarImpl(props: ToolbarProps) {
         let reader = new FileReader()
         reader.onload = handleReaderLoad
         reader.readAsText(e.target.files![0]);
+        e.target.value = ''
     }
 
     function handleRenderPreview() {
