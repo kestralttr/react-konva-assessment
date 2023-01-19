@@ -75,9 +75,6 @@ export function StarElementImpl(props: StarProps) {
           const scaleY = node?.scaleY();
           const rotation = node?.rotation()
 
-          node?.scaleX(1);
-          node?.scaleY(1);
-          node?.rotation(0)
           element.set({
             ...props,
             x: node?.x(),
